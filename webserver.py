@@ -1,4 +1,4 @@
-from bottle import run, route, request
+from bottle import post, run, route, request
 import os
 import insert
 import retrieve
@@ -9,21 +9,30 @@ def index():
 
 @route('/login')
 def login():
-    username = request.query.username
-    password = request.query.password 
-    return "u:"+username+" , p:"+password
+    device_id = request.query.device_id
+    user_id = request.query.user_id
+    insert.register_user_device(user_id, device_id)
+    return "{status:success}"
 
-@route('/addDrop')
+@route('/addDrop', method="POST")
 def addDrop():
-    drop = request.query.drop
-    insert.addDrop(drop)
+    sender= request.forms.user_id
+    comment = request.forms.comment #if not null
+    picture = request.forms.image #if not null
+    video = request.forms.video #if not null
+    recipients = request.forms.recipients
+    lat = request.forms.lat
+    lng = request.forms.lng
+    insert.addDrop(lat, lng, comment=None, picture=None, video = None, recipients=[], sender=None)
+    return "{status:success}"
 
 @route('/getDrops')
 def getDrops():
     lng = request.query.lng
     lat = request.query.lat
-    num = int(request.query.num)
-    dropslist=retrieve.retrieve(lng, lat, num)
+    user_id = request.query.user_id
+    #last update
+    dropslist=retrieve.retrieve(lng, lat, user_id)
     return str(dropslist)
 
 run(host = '0.0.0.0', port=os.environ.get('PORT', 5000))

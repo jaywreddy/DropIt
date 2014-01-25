@@ -11,12 +11,18 @@ users = db.users
 def setup():
     drops.create_index([('loc',GEO2D)])
 
-def insert(drop):
+def addDrop(lat, lng, comment, picture, video, recipients, sender):
+    drop_id = drops.insert({"comment":comment, "loc":[lng, lat],"picture":picture, "video":video, "sender":sender})
+    for user_id in recipients:
+        users.update({"user_id":user_id}, {"$addToSet": {"drops": {"drop":drop_id, "status":0}}})
+        #notify users
+
+def read_drop(user_id, drop_id):
+    users.update({"user_id":user_id}, {"$": {"drops": {"drop": drop_id, "status":1}}})	
     
-    raw.insert(drop)
-    drops.insert(strip(drop))    
-
-
+def register_user_device(user_id, device_id):
+    users.update({"user_id":user_id},{ "device_id":device_id})
+    
 def strip(drop):
     return drop
 	
