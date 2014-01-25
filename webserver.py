@@ -17,7 +17,6 @@ def login():
 def addDrop():
     drop = request.query.drop
     insert.addDrop(drop)
-    connection.close()
 
 @route('/getDrops')
 def getDrops():
@@ -25,5 +24,6 @@ def getDrops():
     lat = request.query.lat
     num = request.query.num
     dropslist=retrieve.retrieve(lng, lat, num)
+    return dropslist
 
 run(host = '0.0.0.0', port=os.environ.get('PORT', 5000))
