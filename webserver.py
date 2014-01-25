@@ -2,8 +2,7 @@ from bottle import run, route, request
 import os
 import insert
 import receive
-import pika
- 
+
 @route('/')
 def index():
     return "Hello World"
