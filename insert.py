@@ -1,13 +1,14 @@
-from pymongo import MongoClient, GEO2D
+from pymongo import Connection, MongoClient, GEO2D
 
 
 #to be specified
-client = MongoClient('localhost', 27017)
-db = client.dropit
+mongoURL="mongodb://dropit:droppers123@ds027779.mongolab.com:27779/dropit"
+conn = Connection(mongoURL)
+db = conn.dropit
 drops = db.drops
 
 def setup():
-	db.drops.create_index([('loc',GEO2D)])
+    drops.create_index([('loc',GEO2D)])
 
 
 def insert(drop):

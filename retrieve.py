@@ -2,7 +2,8 @@ from pymongo import MongoClient
 
 
 #to be specified
-client = MongoClient('localhost', 27017)
+mongoURL="mongodb://dropit:droppers123@ds027779.mongolab.com:27779/dropit"
+client = MongoClient(mongoURL)
 db = client.dropit
 drops = db.drops
 
