@@ -22,8 +22,8 @@ def addDrop():
 def getDrops():
     lng = request.query.lng
     lat = request.query.lat
-    num = request.query.num
+    num = int(request.query.num)
     dropslist=retrieve.retrieve(lng, lat, num)
-    return dropslist
+    return str(dropslist)
 
 run(host = '0.0.0.0', port=os.environ.get('PORT', 5000))
