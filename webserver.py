@@ -1,7 +1,7 @@
 from bottle import run, route, request
 import os
 import insert
-import receive
+import retrieve
 
 @route('/')
 def index():
