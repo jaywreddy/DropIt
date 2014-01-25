@@ -5,4 +5,4 @@ import os
 def index():
     return "Hello World"
 
-bottle.run() 
+bottle.run(host = '0.0.0.0', port=os.environ.get('PORT', 5000))
