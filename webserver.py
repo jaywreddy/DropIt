@@ -23,6 +23,8 @@ def addDrop():
     recipients = request.forms.recipients
     lat = request.forms.lat
     lng = request.forms.lng
+    #deserialize picture
+
     insert.addDrop(lat, lng, comment=None, picture=None, video = None, recipients=[], sender=None)
     return "{status:success}"
 
